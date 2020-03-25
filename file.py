@@ -1,3 +1,6 @@
+def cards():
+	pass
+
 def main():
 	pass
 
