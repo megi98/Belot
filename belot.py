@@ -23,9 +23,34 @@ class Card:
 	def __eq__(self, other):
 
 		return self.rank == other.rank and self.suit == other.suit
+	
+
+	def get_rank(self):
+
+		if self.rank == '7':
+			return 1
+		elif self.rank == '8':
+			return 2
+		elif self.rank == '9':
+			return 3
+		elif self.rank == '10':
+			return 4
+		elif self.rank == 'J':
+			return 5
+		elif self.rank == 'Q':
+			return 6
+		elif self.rank == 'K':
+			return 7
+		else:
+			return 8
 
 
+	def get_suit(self):
 
+		return self.suit
+
+
+	
 class Player:
 
 	__cards = []
@@ -55,18 +80,67 @@ class Player:
 		self.__cards.append(card)
 
 
-	def marking_cards(self):
+	def announcements(self):
 
-		sorted_deck = deck()                    #using the indexes of a sorted deck to mark our 8 cards with numbers
-		mark_list = []
+		carre = []
+		consecutiveness = []
 
-		for card in self.__cards:
-			index_of_the_card = sorted_deck.index(card)
-			mark_list.append(index_of_the_card)
+		for i in range(3,9):
 
-		return sorted(mark_list)
-		
+			check_for_carre = 0
 
+			for card in self.__cards:
+				if card.get_rank() == i:
+					check_for_carre += 1
+
+			carre.append((check_for_carre,i))
+
+		#sorting our cards by rank
+		for i in range(8):
+			for j in range(0, 8-i-1):
+				if self.__cards[j].get_rank() > self.__cards[j+1].get_rank():
+					self.__cards[j], self.__cards[j+1] = self.__cards[j+1], self.__cards[j]
+
+		#and then by suit
+		for i in range(8):
+			for j in range(0, 8-i-1):
+				if self.__cards[j].get_suit() > self.__cards[j+1].get_suit():
+					self.__cards[j], self.__cards[j+1] = self.__cards[j+1], self.__cards[j]
+
+		print(self.__cards)
+
+		k = 0
+		while k < 7:
+
+			check_consecutive = 1
+
+			while self.__cards[k].get_rank() == (self.__cards[k+1].get_rank() - 1) and self.__cards[k].get_suit() == self.__cards[k+1].get_suit() and k < 7:
+				
+				check_consecutive += 1
+				k += 1
+
+			consecutiveness.append(check_consecutive)
+
+			k += 1
+
+		result = ''
+
+		for i in carre:
+			if i[0] == 4:
+				result += f'carre {i[1]} '
+
+		if result != '':
+			return result
+
+		for i in consecutiveness:
+			if i == 3:
+				result += 'tierce '
+			if i == 4:
+				result += 'quarte '
+			if i >= 5:
+				result += 'quinte '
+
+		return result
 
 
 class Team:
@@ -166,9 +240,4 @@ def second_dealing(player, deck):
 	for i in range(3):
 		player.receive_card(deck[0])
 		deck.pop(0)
-
-
-def announcements():
-	pass
-
 
