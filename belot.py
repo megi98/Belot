@@ -193,6 +193,7 @@ class Game:
         self.__sequence[self.team1.get_player2()] = 3
         self.__sequence[self.team2.get_player2()] = 4
 
+
     def __str__(self):
 
         newline = '\n'
@@ -280,6 +281,9 @@ def check_carre(cards):
 
     return have_carre
 
+def game_type():
+    types = ['All', 'None', 'c', 'd', 'h', 's']
+    return random.choice(types)
 
 def main():
 
