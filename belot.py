@@ -282,6 +282,7 @@ def check_carre(cards):
     return have_carre
 
 def game_type():
+    
     types = ['All', 'None', 'c', 'd', 'h', 's']
     return random.choice(types)
 
