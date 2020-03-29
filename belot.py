@@ -3,7 +3,9 @@ from copy import deepcopy
 from collections import defaultdict
 
 
+
 class Card:
+
 
     def __init__(self, rank, suit):
 
@@ -160,6 +162,7 @@ class Team:
 
 
 
+
 class Game:
 
     __sequence = {}
@@ -192,6 +195,7 @@ class Game:
 
 
 
+
 def deck():
 
     ranks = ['A', 'K', 'Q', 'J', '10', '9', '8', '7']
@@ -211,6 +215,7 @@ def shuffle_deck():
     random.shuffle(my_deck)
 
     return my_deck 
+
 
 
 def first_dealing(player, deck):
@@ -296,3 +301,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
