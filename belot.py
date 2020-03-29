@@ -124,6 +124,20 @@ class Player:
 
         return consecutiveness
 
+    def check_belote(self, game_type):
+        sort_cards(self.__cards)
+        belotes = []
+        if game_type == 'All':
+            for i in range(7):
+                if self.__cards[i].get_rank() == 6 and self.__cards[i + 1] == 7:
+                    belotes.append(('belote:', self.__cards[i].get_suit()))
+        else:
+            for i in range(7):
+                if self.__cards[i].get_rank() == 6 and self.__cards[i + 1].get_rank() == 7 and game_type == self.__cards[i].get_suit():
+                    belotes.append(('belote:', self.__cards[i].get_suit()))
+
+        return belotes
+
 
     def announcements(self):
         carres = check_carre(self.__cards)
@@ -282,9 +296,10 @@ def check_carre(cards):
     return have_carre
 
 def game_type():
-    
+
     types = ['All', 'None', 'c', 'd', 'h', 's']
     return random.choice(types)
+
 
 def main():
 
@@ -305,8 +320,10 @@ def main():
     second_dealing(player1, my_deck)
 
     player1.show()
-
+    type_of_game = game_type()
+    print('type:' , type_of_game)
     print(player1.announcements())
+    print('Belotes: ' , player1.check_belote(type_of_game))
 
 
 if __name__ == "__main__":
