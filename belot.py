@@ -6,7 +6,6 @@ from collections import defaultdict
 
 class Card:
 
-
     def __init__(self, rank, suit):
 
         self.rank = rank
@@ -162,7 +161,6 @@ class Team:
 
 
 
-
 class Game:
 
     __sequence = {}
@@ -192,7 +190,6 @@ class Game:
         newline = '\n'
         return f'{self.team1}{newline}{self.team2}{newline}{self.__sequence}'
         
-
 
 
 
