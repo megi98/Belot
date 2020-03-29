@@ -84,30 +84,10 @@ class Player:
 
 		carre = []
 		consecutiveness = []
+		
+		check_carre(self.__cards)
 
-		for i in range(3,9):
-
-			check_for_carre = 0
-
-			for card in self.__cards:
-				if card.get_rank() == i:
-					check_for_carre += 1
-
-			carre.append((check_for_carre,i))
-
-		#sorting our cards by rank
-		for i in range(8):
-			for j in range(0, 8-i-1):
-				if self.__cards[j].get_rank() > self.__cards[j+1].get_rank():
-					self.__cards[j], self.__cards[j+1] = self.__cards[j+1], self.__cards[j]
-
-		#and then by suit
-		for i in range(8):
-			for j in range(0, 8-i-1):
-				if self.__cards[j].get_suit() > self.__cards[j+1].get_suit():
-					self.__cards[j], self.__cards[j+1] = self.__cards[j+1], self.__cards[j]
-
-		print(self.__cards)
+		sort_cards(self.__cards)
 
 		k = 0
 		while k < 7:
@@ -124,13 +104,6 @@ class Player:
 			k += 1
 
 		result = ''
-
-		for i in carre:
-			if i[0] == 4:
-				result += f'carre {i[1]} '
-
-		if result != '':
-			return result
 
 		for i in consecutiveness:
 			if i == 3:
@@ -240,4 +213,42 @@ def second_dealing(player, deck):
 	for i in range(3):
 		player.receive_card(deck[0])
 		deck.pop(0)
+		
+		
+def sort_cards(cards):
+
+	n = len(cards)
+
+	#sorting our cards by rank
+	for i in range(n):
+		for j in range(0, n-i-1):
+			if cards[j].get_rank() > cards[j+1].get_rank():
+				cards[j], cards[j+1] = cards[j+1], cards[j]
+
+	#and then by suit
+	for i in range(n):
+		for j in range(0, n-i-1):
+			if cards[j].get_suit() > cards[j+1].get_suit():
+				cards[j], cards[j+1] = cards[j+1], cards[j]
+
+	return cards
+
+
+def check_carre(cards):
+
+	for i in range(3,9):
+
+		check_for_carre = 0
+
+		for card in cards:
+			if card.get_rank() == i:
+				check_for_carre += 1
+
+		carre.append((check_for_carre,i))
+
+	for i in carre:
+		if i[0] == 4:
+			return ('carre', i[1])
+
+	return False
 
