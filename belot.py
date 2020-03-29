@@ -79,7 +79,14 @@ class Player:
 
         self.__cards.append(card)
 
+
+    def get_name(self):
+
+        return self.name
+
+
     def show(self):
+
         print(self.__cards)
         return None
 
@@ -137,6 +144,7 @@ class Player:
         return result
 
 
+
 class Team:
 
     def __init__(self, name, player1, player2):
@@ -178,7 +186,6 @@ class Game:
         self.team1 = team1
         self.team2 = team2
 
-
     def sequence(self):
 
         self.__sequence[self.team1.get_player1()] = 1
@@ -186,22 +193,15 @@ class Game:
         self.__sequence[self.team1.get_player2()] = 3
         self.__sequence[self.team2.get_player2()] = 4
 
-
     def __str__(self):
 
         newline = '\n'
         return f'{self.team1}{newline}{self.team2}{newline}{self.__sequence}'
 
-
     def __repr__(self):
 
         newline = '\n'
         return f'{self.team1}{newline}{self.team2}{newline}{self.__sequence}'
-
-def game_type():
-
-    types = ['All', 'None', 'c', 'd', 'h', 's']
-    return random.choice(types)
 
 
 def deck():
@@ -282,7 +282,7 @@ def check_carre(cards):
 
 
 def main():
-    print(game_type())
+
     player1 = Player('player1')
     player2 = Player('player2')
     player3 = Player('player3')
