@@ -105,7 +105,6 @@ class Player:
                         copy_cards.remove(j)
 
         sort_cards(copy_cards)
-        print(copy_cards)
 
         k = 0
         while k < len(copy_cards) - 1:
@@ -129,7 +128,7 @@ class Player:
         belotes = []
         if game_type == 'All':
             for i in range(7):
-                if self.__cards[i].get_rank() == 6 and self.__cards[i + 1] == 7:
+                if self.__cards[i].get_rank() == 6 and self.__cards[i + 1].get_rank() == 7:
                     belotes.append(('belote:', self.__cards[i].get_suit()))
         else:
             for i in range(7):
@@ -149,11 +148,11 @@ class Player:
 
         for i in consecutiveness:
             if i[0] == 3:
-                result.append('tierce ')
+                result.append('tierce')
             if i[0] == 4:
-                result.append('quarte ')
+                result.append('quarte')
             if i[0] >= 5:
-                result.append('quinte ')
+                result.append('quinte')
 
         return result
 
@@ -182,18 +181,20 @@ class Team:
 
     def get_player1(self):
 
-        return self.player1.get_name()
+        return self.player1
 
 
     def get_player2(self):
 
-        return self.player2.get_name()
+        return self.player2
 
 
 
 class Game:
 
-    __sequence = {}
+    __sequence = []
+    __deck = deck()
+    __game_type = ''
 
     def __init__(self, team1, team2):
 
@@ -202,10 +203,10 @@ class Game:
 
     def sequence(self):
 
-        self.__sequence[self.team1.get_player1()] = 1
-        self.__sequence[self.team2.get_player1()] = 2
-        self.__sequence[self.team1.get_player2()] = 3
-        self.__sequence[self.team2.get_player2()] = 4
+        self.__sequence.append(self.team1.get_player1())
+        self.__sequence.append(self.team2.get_player1())
+        self.__sequence.append(self.team1.get_player2())
+        self.__sequence.append(self.team2.get_player2())
 
 
     def __str__(self):
@@ -217,6 +218,19 @@ class Game:
 
         newline = '\n'
         return f'{self.team1}{newline}{self.team2}{newline}{self.__sequence}'
+    
+    def dealing(self):
+
+        self.__deck = shuffle_deck()
+
+        for player in self.__sequence:
+            first_dealing(player)
+
+        __game_type = game_type()
+
+        for player in self.__sequence:
+            second_dealing(player, self.__deck)
+
 
 
 def deck():
