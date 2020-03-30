@@ -224,7 +224,7 @@ class Game:
         self.__deck = shuffle_deck()
 
         for player in self.__sequence:
-            first_dealing(player)
+            first_dealing(player, self.__deck)
 
         __game_type = game_type()
 
